@@ -1,7 +1,8 @@
 import FavoriteButton from '../FavoriteButton'
+
 import * as S from './styles'
 
-type cardProps = {
+type CardProps = {
   date: string
   isFavorite: boolean
   title: string
@@ -9,7 +10,7 @@ type cardProps = {
   onFavorite: () => void
 }
 
-function Card({ date, isFavorite, title, paragraph, onFavorite }: cardProps) {
+function Card({ date, isFavorite, title, paragraph, onFavorite }: CardProps) {
   return (
     <S.Card>
       <header>

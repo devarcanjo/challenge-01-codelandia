@@ -8,7 +8,6 @@ import formatDate from '../../utils/formatDate'
 import dataArticles from '../../assets/articles.json'
 
 import * as S from './styles'
-import { Header } from '../../components/HeaderBar/styles'
 
 type ArticleProps = {
   id: number
