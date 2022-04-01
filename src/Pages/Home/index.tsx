@@ -8,6 +8,7 @@ import formatDate from '../../utils/formatDate'
 import dataArticles from '../../assets/articles.json'
 
 import * as S from './styles'
+import { Header } from '../../components/HeaderBar/styles'
 
 type ArticleProps = {
   id: number
@@ -31,6 +32,16 @@ function Home() {
     setArticles(formattedData)
   }, [])
 
+  const handleFavorite = (id: number) => {
+    const updateArticles = articles.map(article =>
+      article.id === id
+        ? { ...article, isFavorite: !article.isFavorite }
+        : article
+    )
+
+    setArticles(updateArticles)
+  }
+
   useEffect(() => {
     if (!articles) return
 
@@ -45,6 +56,7 @@ function Home() {
 
     setFilteredArticles(filterArticle)
   }, [articles, search])
+
   return (
     <>
       <HeaderBar
@@ -54,17 +66,14 @@ function Home() {
       <S.Container>
         {filteredArticles.map(article => (
           <Card
-            date={''}
-            isFavorite={false}
-            title={''}
-            paragraph={''}
-            onFavorite={function (): void {
-              throw new Error('Function not implemented.')
-            }}
+            key={article.id}
+            onFavorite={() => handleFavorite(article.id)}
+            {...article}
           />
         ))}
       </S.Container>
     </>
   )
 }
+
 export default Home
