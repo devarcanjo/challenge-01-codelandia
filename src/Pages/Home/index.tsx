@@ -1,10 +1,34 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
 import Card from '../../components/Card'
 import HeaderBar from '../../components/HeaderBar/headerBar'
+
+import formatDate from '../../utils/formatDate'
+
+import dataArticles from 'assets/articles.json'
+
 import * as S from './styles'
+
+type ArticleProps = {
+  id: number
+  date: string
+  isFavorite: boolean
+  title: string
+  paragraph: string
+}
 
 function Home() {
   const [search, setSearch] = useState('')
+  const [article, setArticles] = useState<ArticleProps[]>([])
+
+  useEffect(() => {
+    const formattedData = dataArticles.map(article => ({
+      ...article,
+      date: formatDate(article.date)
+    }))
+
+    setArticles(formattedData)
+  }, [])
 
   return (
     <>
@@ -27,3 +51,6 @@ function Home() {
   )
 }
 export default Home
+function formattedData(formattedData: any) {
+  throw new Error('Function not implemented.')
+}
