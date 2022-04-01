@@ -1,6 +1,7 @@
 import FavoriteButton from '../FavoriteButton'
 
 import * as S from './styles'
+import ScrollReveal from '../ScrollReveal'
 
 type CardProps = {
   date: string
@@ -14,11 +15,17 @@ function Card({ date, isFavorite, title, paragraph, onFavorite }: CardProps) {
   return (
     <S.Card>
       <header>
-        <span>{date}</span>
+        <ScrollReveal delay={400}>
+          <span>{date}</span>
+        </ScrollReveal>
         <FavoriteButton isFavorite={isFavorite} onClick={onFavorite} />
       </header>
-      <h2>{title}</h2>
-      <p> {paragraph} </p>
+      <ScrollReveal delay={500}>
+        <h2>{title}</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={600}>
+        <p> {paragraph} </p>
+      </ScrollReveal>
     </S.Card>
   )
 }
