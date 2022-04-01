@@ -5,7 +5,7 @@ import HeaderBar from '../../components/HeaderBar/headerBar'
 
 import formatDate from '../../utils/formatDate'
 
-import dataArticles from 'assets/articles.json'
+import dataArticles from '../../assets/articles.json'
 
 import * as S from './styles'
 
@@ -19,7 +19,8 @@ type ArticleProps = {
 
 function Home() {
   const [search, setSearch] = useState('')
-  const [article, setArticles] = useState<ArticleProps[]>([])
+  const [articles, setArticles] = useState<ArticleProps[]>([])
+  const [filteredArticles, setFilteredArticles] = useState<ArticleProps[]>([])
 
   useEffect(() => {
     const formattedData = dataArticles.map(article => ({
@@ -30,6 +31,20 @@ function Home() {
     setArticles(formattedData)
   }, [])
 
+  useEffect(() => {
+    if (!articles) return
+
+    const searchLowercase = search.toLocaleLowerCase()
+
+    const filterArticle = articles.filter(
+      article =>
+        article.title.toLowerCase().includes(searchLowercase) ||
+        article.date.toLowerCase().includes(searchLowercase) ||
+        article.paragraph.toLowerCase().includes(searchLowercase)
+    )
+
+    setFilteredArticles(filterArticle)
+  }, [articles, search])
   return (
     <>
       <HeaderBar
@@ -37,20 +52,19 @@ function Home() {
         onChange={event => setSearch(event.target.value)}
       />
       <S.Container>
-        <Card
-          date={''}
-          isFavorite={false}
-          title={''}
-          paragraph={''}
-          onFavorite={function (): void {
-            throw new Error('Function not implemented.')
-          }}
-        />
+        {filteredArticles.map(article => (
+          <Card
+            date={''}
+            isFavorite={false}
+            title={''}
+            paragraph={''}
+            onFavorite={function (): void {
+              throw new Error('Function not implemented.')
+            }}
+          />
+        ))}
       </S.Container>
     </>
   )
 }
 export default Home
-function formattedData(formattedData: any) {
-  throw new Error('Function not implemented.')
-}
