@@ -1,9 +1,15 @@
-import HeaderBar from '../../HeaderBar/headerBar'
+import { useState } from 'react'
+import HeaderBar from '../../components/HeaderBar/headerBar'
 
 function Home() {
+  const [search, setSearch] = useState('')
+
   return (
     <>
-      <HeaderBar />
+      <HeaderBar
+        value={search}
+        onChange={event => setSearch(event.target.value)}
+      />
     </>
   )
 }
